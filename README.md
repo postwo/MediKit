@@ -90,7 +90,7 @@ Unity 셀 전체 모습입니다. 키팅 → 비전 검사 → 불량 분리 →
   <img src="docs/images/demo.gif" alt="MediKit Twin 시연 (미리보기)" width="720" />
 </p>
 
-🎬 [시연 영상 전체 보기 (YouTube)](https://www.youtube.com/watch?v=0DOmODBqz7Q) (약 1분 56초, 위 GIF는 전체 영상을 4배속으로 줄인 미리보기)
+🎬 [시연 영상 전체 보기 (YouTube)](https://www.youtube.com/watch?v=0DOmODBqz7Q)
 
 <br/>
 
