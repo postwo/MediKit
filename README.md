@@ -41,6 +41,28 @@
 
 <br/>
 
+## 🖼 시뮬레이션 화면
+
+Unity 셀 전체 모습입니다. 키팅 → 비전 검사 → 불량 분리 → 뚜껑 덮기 → AGV 하역 순으로 컨베이어를 따라 진행합니다.
+
+<div align="center">
+  <img src="docs/images/cell_overview.png" alt="MediKit Twin Unity 셀 구성" width="100%" />
+</div>
+
+<br/>
+
+| 키팅 (로봇암 A) | 검사 슬롯 |
+| :-: | :-: |
+| <img src="docs/images/kitting_arm_a.png" alt="로봇암 A 키팅" width="100%" /> | <img src="docs/images/inspection_slot_crop.png" alt="키트 박스 슬롯 검사 화면" height="260" /> |
+| 선반에서 구성품을 집어 지그 위 키트 박스 슬롯에 담음 | 키트 박스 슬롯을 크롭해 CNN으로 정상·불량 판정 |
+
+| 불량 배출 (푸셔) | 하역 (AGV) |
+| :-: | :-: |
+| <img src="docs/images/pusher_reject_bin.png" alt="푸셔와 불량 박스" width="100%" /> | <img src="docs/images/unloading_agv.png" alt="하역 AGV와 하역장" width="100%" /> |
+| 불량 키트를 컨베이어 밖 불량 박스로 밀어 분리 | 컨베이어 끝에서 박스를 집어 경로를 따라 하역장으로 이동 |
+
+<br/>
+
 ## 🏗 공정 구조
 
 <div align="center">
