@@ -34,9 +34,8 @@
 | 렌더 파이프라인 | URP 17.6 |
 | 입력 | Input System 1.20 (새 Input System 전용) |
 | 추론 | `com.unity.ai.inference` 2.6.1 (Sentis, ONNX) |
-| 로봇 | URDF Importer v0.5.2, ROS-TCP-Connector (선택) |
+| 로봇 | URDF Importer v0.5.2 |
 | CNN 학습 | Python 3.9~3.13, PyTorch ([MLTraining/README.md](../MLTraining/README.md)) |
-| ROS (선택) | Ubuntu 22.04, ROS 2 Humble ([medikit_ws/README.md](../medikit_ws/README.md)) |
 
 ## 시작하기
 
@@ -86,15 +85,13 @@ Assets/_Project/
 │   ├── Dashboard  대시보드 공통 (색, 글꼴, 지표)
 │   ├── Demo       대시보드 패널과 시연 도구
 │   ├── CameraRig  셀 카메라
-│   ├── Rl         강화학습 도달 환경 (선택)
-│   └── Ros        ROS 연동 (선택)
+│   └── Rl         강화학습 도달 환경 (선택)
 ├── Editor/        씬/프리팹 구성 도구, 측정 도구, 합성 데이터 도구
 ├── Config/        로봇 프로필, 시나리오, 선반 배치, 학습 랜덤화 설정
 ├── Recipes/       Recipe_EM, Recipe_BL, Recipe_DX
 ├── Models/        검사 CNN(ONNX)
 └── Tests/         EditMode, PlayMode 시험
 MLTraining/        CNN 학습 스크립트 (Assets 밖)
-medikit_ws/        ROS 2 워크스페이스 (선택)
 docs/              SRS, 인터페이스 정의서, 트러블슈팅, 도표
 ```
 
@@ -103,17 +100,12 @@ docs/              SRS, 인터페이스 정의서, 트러블슈팅, 도표
 ## 설계 규칙
 
 - 설비끼리 직접 참조하지 않고 `CellEvents`의 신호(`KitReady`, `AtInspection`, `InspectionResult`, `KitShipped` 등)로만 주고받는다. 신호 목록은 [INTERFACES.md](INTERFACES.md)에 있다.
-- `Common`은 ROS를 알지 못한다. `Ros` 코드가 `Common`을 쓰는 한 방향만 허용하며, 어셈블리 정의로 강제한다.
-- 시간은 모두 시뮬레이션 시간(`SimClock`, 배속 반영)이다. 예외는 ROS 발행 주기와 설비 주기 통지다.
+- 시간은 모두 시뮬레이션 시간(`SimClock`, 배속 반영)이다. 예외는 설비 주기 통지다.
 - 키트 판정 결과의 출처는 `KitData.Verdict` 하나이다.
 
 ## 검사 CNN
 
 슬롯 크롭 하나를 빈 슬롯 또는 구성품 12종으로 분류하고, 슬롯 판정을 박스 단위로 올려 정상/불량을 정한다. 합성 데이터셋은 `Tools > MediKit > Synthetic Dataset (Inspection)`으로 만들고, `MLTraining/train.py`로 학습해 ONNX를 `Assets/_Project/Models/Inspection/`에 넣는다. NFR-04 기준은 박스 정확도와 불량 재현율이 모두 0.90 이상이다. 환경 설정, 데이터 구성, 현재 모델의 측정 결과는 [MLTraining/README.md](../MLTraining/README.md)를 본다.
-
-## ROS 2 연동 (선택)
-
-로봇암 A는 Unity 단독(IK) 또는 ROS 2(`/arm_a/joint_command` 관절 목표 각도 수신, `/arm_a/joint_states` 발행)로 구동한다. ROS 제어 중에는 배속이 1배로 고정된다. 워크스페이스 빌드와 실행은 [medikit_ws/README.md](../medikit_ws/README.md)를 본다. Unity 쪽은 `Robotics > ROS Settings`에서 Protocol ROS2, 포트 7777로 맞춘다.
 
 ## 에디터 도구
 
@@ -143,8 +135,7 @@ docs/              SRS, 인터페이스 정의서, 트러블슈팅, 도표
 
 | 문서 | 내용 |
 |---|---|
-| [INTERFACES.md](INTERFACES.md) | 공통 인터페이스(CellEvents, KitData, RecipeSO, ROS 토픽) |
+| [INTERFACES.md](INTERFACES.md) | 공통 인터페이스(CellEvents, KitData, RecipeSO) |
 | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | 만난 문제와 원인, 해결 (상세 기록은 `docs/troubleShooting/`) |
 | [MLTraining/README.md](../MLTraining/README.md) | CNN 학습과 성능 측정 |
-| [medikit_ws/README.md](../medikit_ws/README.md) | ROS 2 워크스페이스 |
 | [CONVENTION.md](../CONVENTION.md) | 협업, 씬, 코딩 컨벤션 |

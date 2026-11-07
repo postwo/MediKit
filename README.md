@@ -20,7 +20,6 @@
 | 엔진 | Unity 6000.6.0f1, URP 17.6 |
 | 로봇 | 로봇암 A(FR5), 로봇암 B(UR3), 하역 AGV |
 | 검사 | 슬롯 크롭 CNN(ONNX, Sentis 추론) + 규칙 판정 |
-| 연동 | ROS 2 Humble (선택, 로봇암 A 관절 제어) |
 | 팀 | AURIX Robotics (2인) |
 | 요구사항 | [AURIX_SRS.docx](docs/AURIX_SRS.docx) — 코드와 문서의 `FR-xx`, `NFR-xx`는 이 SRS의 ID |
 
@@ -106,8 +105,7 @@ Unity 셀 전체 모습입니다. 키팅 → 비전 검사 → 불량 분리 →
 ## 🧩 설계 규칙
 
 - **신호로만 소통**: 설비끼리 직접 참조하지 않고 `CellEvents`의 신호(`KitReady`, `AtInspection`, `InspectionResult`, `KitShipped` 등)로만 주고받습니다. 신호 목록은 [INTERFACES.md](docs/INTERFACES.md)에 있습니다.
-- **ROS 분리**: `Common`은 ROS를 알지 못합니다. `Ros` 코드가 `Common`을 쓰는 한 방향만 허용하며, 어셈블리 정의로 강제합니다.
-- **시뮬레이션 시간**: 시간은 모두 `SimClock`(배속 반영)을 따릅니다. 예외는 ROS 발행 주기와 설비 주기 통지입니다.
+- **시뮬레이션 시간**: 시간은 모두 `SimClock`(배속 반영)을 따릅니다. 예외는 설비 주기 통지입니다.
 - **판정의 단일 출처**: 키트 판정 결과의 출처는 `KitData.Verdict` 하나입니다.
 - **재현성**: 같은 시드와 같은 주문 파일은 같은 결과를 냅니다(NFR-06).
 
@@ -121,7 +119,6 @@ Unity 셀 전체 모습입니다. 키팅 → 비전 검사 → 불량 분리 →
 | 추론 | `com.unity.ai.inference` 2.6.1 (Sentis, ONNX) |
 | 로봇 모델 | URDF Importer v0.5.2, FR5 / UR3 |
 | CNN 학습 | Python 3.9~3.13, PyTorch, 합성 데이터셋 |
-| ROS (선택) | Ubuntu 22.04, ROS 2 Humble, ROS-TCP-Connector |
 | 시험 | Unity Test Runner (EditMode / PlayMode, 모듈별 어셈블리) |
 
 <br/>
@@ -131,10 +128,9 @@ Unity 셀 전체 모습입니다. 키팅 → 비전 검사 → 불량 분리 →
 | 문서 | 설명 |
 | :-- | :-- |
 | [docs/README.md](docs/README.md) | 상세 안내 — 요구 환경, 폴더 구조, 에디터 도구, 시험, 협업 규칙 (기존 README) |
-| [INTERFACES.md](docs/INTERFACES.md) | 공통 인터페이스(CellEvents, KitData, RecipeSO, ROS 토픽) |
+| [INTERFACES.md](docs/INTERFACES.md) | 공통 인터페이스(CellEvents, KitData, RecipeSO) |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 만난 문제와 원인 · 해결 (상세 기록은 `docs/troubleShooting/`) |
 | [MLTraining/README.md](MLTraining/README.md) | CNN 학습과 성능 측정 |
-| [medikit_ws/README.md](medikit_ws/README.md) | ROS 2 워크스페이스 |
 | [COMMIT_RULES.md](COMMIT_RULES.md) | 브랜치 전략 · 커밋 메시지 · PR 규칙 |
 | [CONVENTION.md](CONVENTION.md) | 협업, 씬, 코딩 컨벤션 |
 
@@ -161,4 +157,4 @@ git config core.hooksPath .githooks   # 커밋 규칙 자동 검사
 3,C병원,BL,4
 ```
 
-시나리오(누락 확률, 설비 실패 키트, 난수 시드, 재고)는 `Assets/_Project/Config/ScenarioConfig_Default.asset`에서 바꿉니다. 폴더 구조, 에디터 도구, ROS 2 연동, 시험 방법은 [docs/README.md](docs/README.md)를 참고하세요.
+시나리오(누락 확률, 설비 실패 키트, 난수 시드, 재고)는 `Assets/_Project/Config/ScenarioConfig_Default.asset`에서 바꿉니다. 폴더 구조, 에디터 도구, 시험 방법은 [docs/README.md](docs/README.md)를 참고하세요.
