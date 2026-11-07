@@ -51,32 +51,6 @@ Unity 셀 전체 모습입니다. 키팅 → 비전 검사 → 불량 분리 →
 
 <br/>
 
-| 키팅 (로봇암 A) | 검사 슬롯 |
-| :-: | :-: |
-| <img src="docs/images/kitting_arm_a.png" alt="로봇암 A 키팅" width="100%" /> | <img src="docs/images/inspection_slot_crop.png" alt="키트 박스 슬롯 검사 화면" height="260" /> |
-| 선반에서 구성품을 집어 지그 위 키트 박스 슬롯에 담음 | 키트 박스 슬롯을 크롭해 CNN으로 정상·불량 판정 |
-
-| 불량 배출 (푸셔) | 하역 (AGV) |
-| :-: | :-: |
-| <img src="docs/images/pusher_reject_bin.png" alt="푸셔와 불량 박스" width="100%" /> | <img src="docs/images/unloading_agv.png" alt="하역 AGV와 하역장" width="100%" /> |
-| 불량 키트를 컨베이어 밖 불량 박스로 밀어 분리 | 컨베이어 끝에서 박스를 집어 경로를 따라 하역장으로 이동 |
-
-<br/>
-
-## 🏗 공정 구조
-
-<div align="center">
-  <img src="docs/AURIX_%EA%B3%B5%EC%A0%95%ED%9D%90%EB%A6%84%EB%8F%84.png" alt="MediKit Twin 공정 흐름도" width="100%" />
-</div>
-
-<br/>
-
-<div align="center">
-  <img src="docs/AURIX_%EA%B3%B5%EC%A0%95%EB%82%B4%EB%B6%80%EB%8F%84.png" alt="MediKit Twin 공정 내부도" width="85%" />
-</div>
-
-<br/>
-
 ```
 주문(CSV) → 키팅(로봇암 A) → 컨베이어 → 검사(CNN) ─정상→ 팩킹(로봇암 B, 뚜껑) → 라벨 → 컨베이어 끝 → 하역(AGV) → 하역장
                                               └─불량→ 푸셔 → 불량 박스(RejectBin)
@@ -94,6 +68,26 @@ Unity 셀 전체 모습입니다. 키팅 → 비전 검사 → 불량 분리 →
 | 라벨 | 뚜껑에 키트 라벨을 붙임 | `Scripts/Label` |
 | 하역 | AGV가 박스를 하역장의 키트별 구역(EM, BL, DX)에 내려놓음 | `Scripts/Unloader` |
 | 대시보드 | 공정 현황, 주문, 재고, 로그, 배속, 카메라 패널 | `Scripts/Dashboard`, `Scripts/Demo` |
+
+<br/>
+
+| 키팅 (로봇암 A) | 검사 슬롯 |
+| :-: | :-: |
+| <img src="docs/images/kitting_arm_a.png" alt="로봇암 A 키팅" width="100%" /> | <img src="docs/images/inspection_slot_crop.png" alt="키트 박스 슬롯 검사 화면" height="260" /> |
+| 선반에서 구성품을 집어 지그 위 키트 박스 슬롯에 담음 | 키트 박스 슬롯을 크롭해 CNN으로 정상·불량 판정 |
+
+| 불량 배출 (푸셔) | 하역 (AGV) |
+| :-: | :-: |
+| <img src="docs/images/pusher_reject_bin.png" alt="푸셔와 불량 박스" width="100%" /> | <img src="docs/images/unloading_agv.png" alt="하역 AGV와 하역장" width="100%" /> |
+| 불량 키트를 컨베이어 밖 불량 박스로 밀어 분리 | 컨베이어 끝에서 박스를 집어 경로를 따라 하역장으로 이동 |
+
+<br/>
+
+## 🏗 공정 구조
+
+<div align="center">
+  <img src="docs/AURIX_%EA%B3%B5%EC%A0%95%ED%9D%90%EB%A6%84%EB%8F%84.png" alt="MediKit Twin 공정 흐름도" width="100%" />
+</div>
 
 <br/>
 
